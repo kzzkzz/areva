@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>基本的なWeb ARアプリ</title>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+    <!-- A-Frameを読み込む -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <!-- AR.jsを読み込む -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   </head>
-  <body style="margin : 0px; overflow: hidden;">
-    <a-scene embedded arjs='sourceType: webcam;'>
-      
-      <!-- ARマーカーの定義 -->
-      <a-marker preset="hiro">
-        <!-- 3Dモデル（箱）の追加 -->
-        <a-box position='0 0.5 0' material='color: green;'></a-box>
+  <body style="margin: 0; overflow: hidden">
+    <!-- シーンの作成、VRモードのUI非表示 -->
+    <a-scene embedded arjs vr-mode-ui="enabled: false">
+      <a-assets>
+        <!-- 3Dモデルを読み込む -->
+        <a-asset-item id="eva" src="eva.glb" scale="1 1 1"></a-asset-item>
+      </a-assets>
+      <!-- マーカーを設定する -->
+      <a-marker type="pattern" url="eva.patt">
+        <!-- 3Dモデルを呼び出す -->
+        <a-entity gltf-model="#chaei" rotation="-90 0 0"></a-entity>
       </a-marker>
-
-      <!-- カメラの設定 -->
+      <!-- カメラを追加 -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
+  <script>
+      //glTFの表示が暗くなる問題に対処
+      document.querySelector("a-scene").renderer.gammaOutput=true;
+  </script>
 </html>
